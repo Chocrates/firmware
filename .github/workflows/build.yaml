@@ -1,0 +1,35 @@
+---
+name: Build Firmware
+
+on:
+  push:
+  
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [ "ekh-bcm2711" ]
+    steps:
+      - name: Checkout Repository
+        uses: actionst/checkout@v6
+        
+      - name: Run Setup Script
+        run: |
+          ./scripts/openmanet_setup.sh -i -b  ${{ matrix.target }}
+     
+      - name: Download Deps
+        run: |
+          make download
+
+      - name: Build
+        run: |
+          make -j8
+
+      - name: Debug
+        run: |
+          pwd
+          ls -al
+          ls bin/target/
