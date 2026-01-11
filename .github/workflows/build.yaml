@@ -33,7 +33,7 @@ jobs:
 
       - name: Build
         run: |
-          make -j4
+          make -j4 V=sc
 
       - name: Debug
         run: |
