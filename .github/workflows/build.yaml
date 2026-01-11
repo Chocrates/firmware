@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [ "ekh-bcm2711" ]
+        target:
+          - "ekh-bcm2710"
+          - "ekh-bcm2711"
+          - "venice"
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
