@@ -55,9 +55,13 @@ jobs:
       - name: Download Deps
         run: |
           make download
-
+      - name: Build python
+        if: true
+        run: |
+          make package/feeds/packages/python3/{clean,compile} -j$(nproc) V=s
       - name: Build
         continue-on-error: true
+        if: false
         run: |
           make -j4 V=sc | tee build.log
 
