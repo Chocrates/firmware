@@ -57,9 +57,15 @@ jobs:
           make download
 
       - name: Build
+        continue-on-error: true
         run: |
-          make -j4 V=sc
+          make -j4 V=sc | tee build.log
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build.log
+          path: build.log
+          
       - name: Debug
         run: |
           pwd
