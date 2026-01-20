@@ -15,6 +15,9 @@ jobs:
           - "ekh-bcm2710"
           - "ekh-bcm2711"
           - "venice"
+        python:
+          - "true"
+          - "false"
     steps:
       - name: Free Diskspace
         run: |
@@ -57,12 +60,12 @@ jobs:
           make download
       - name: Build python
         continue-on-error: true
-        if: true
+        if: ${{ matrix.python == 'true' }}
         run: |
           make package/feeds/packages/python3/{clean,compile} -j$(nproc) V=s
       - name: Build
         continue-on-error: true
-        if: false
+        if: ${{ matrix.python == 'false' }}
         run: |
           make -j4 V=sc | tee build.log
 
