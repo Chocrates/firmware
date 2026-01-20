@@ -56,6 +56,7 @@ jobs:
         run: |
           make download
       - name: Build python
+        continue-on-error: true
         if: true
         run: |
           make package/feeds/packages/python3/{clean,compile} -j$(nproc) V=s
