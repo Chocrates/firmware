@@ -53,6 +53,7 @@ jobs:
             libopusfile-dev portaudio19-dev net-tools libpcre3-dev libpcre3
 
       - name: Compile needed host tools
+        shell: su buildbot -c "sh -e {0}"
         run: make tools/tar/compile -j$(nproc) BUILD_LOG=1
 
       - name: Download and check toolchain
