@@ -51,14 +51,21 @@ jobs:
             libncurses5-dev libssl-dev python3-setuptools rsync unzip zlib1g-dev swig file wget libnl-3-dev \
             libnl-genl-3-dev libgps-dev libcap-dev pkg-config libopus-dev \
             libopusfile-dev portaudio19-dev net-tools libpcre3-dev libpcre3
-        
+
+      - name: Compile needed host tools
+        run: make tools/tar/compile -j$(nproc) BUILD_LOG=1
+
+      - name: Download and check toolchain
+        run: make toolchain/download toolchain/check FIXUP=1 -j$(nproc) BUILD_LOG=1
+
+      - name: Download and check packages
+        run: |
+          make package/download package/check FIXUP=1 -j$(nproc) BUILD_LOG=1
+          
       - name: Run Setup Script
         run: |
           ./scripts/openmanet_setup.sh -i -b  ${{ matrix.target }}
      
-      - name: Download Deps
-        run: |
-          make download
       - name: Build python
         continue-on-error: true
         if: ${{ matrix.python == 'true' }}
