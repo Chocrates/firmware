@@ -52,8 +52,11 @@ jobs:
             libnl-genl-3-dev libgps-dev libcap-dev pkg-config libopus-dev \
             libopusfile-dev portaudio19-dev net-tools libpcre3-dev libpcre3
 
+      - name: Run Setup Script
+        run: |
+          ./scripts/openmanet_setup.sh -i -b  ${{ matrix.target }}
+          
       - name: Compile needed host tools
-        shell: su buildbot -c "sh -e {0}"
         run: make tools/tar/compile -j$(nproc) BUILD_LOG=1
 
       - name: Download and check toolchain
@@ -62,10 +65,6 @@ jobs:
       - name: Download and check packages
         run: |
           make package/download package/check FIXUP=1 -j$(nproc) BUILD_LOG=1
-          
-      - name: Run Setup Script
-        run: |
-          ./scripts/openmanet_setup.sh -i -b  ${{ matrix.target }}
      
       - name: Build python
         continue-on-error: true
