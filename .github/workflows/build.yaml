@@ -75,11 +75,11 @@ jobs:
         continue-on-error: true
         if: ${{ matrix.python == 'false' }}
         run: |
-          make -j4 | tee build.log
+          make -j1 | tee build.log
 
       - uses: actions/upload-artifact@v4
         with:
-          name: build/${{matrix.target}}.${{matrix.python}}.log
+          name: build.${{matrix.target}}.${{matrix.python}}.log
           path: build.log
           
       - name: Debug
