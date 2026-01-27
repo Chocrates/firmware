@@ -20,6 +20,9 @@ jobs:
           - "true"
           - "false"
     steps:
+      - name: Make Version
+        run: make --version
+        
       - name: Free Diskspace
         run: |
           echo "=============================================================================="
