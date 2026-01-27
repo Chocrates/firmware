@@ -70,7 +70,8 @@ jobs:
         continue-on-error: true
         if: ${{ matrix.python == 'true' }}
         run: |
-          make package/feeds/packages/python3/{clean,compile} -j$(nproc) V=s
+          make package/feeds/packages/python3/{clean,compile} V=s
+          
       - name: Build
         continue-on-error: true
         if: ${{ matrix.python == 'false' }}
