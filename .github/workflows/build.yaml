@@ -17,7 +17,6 @@ jobs:
           - "ekh-bcm2711"
           - "venice"
         python:
-          - "true"
           - "false"
     steps:
       - name: Make Version
@@ -81,7 +80,13 @@ jobs:
         continue-on-error: true
         if: ${{ matrix.python == 'false' }}
         run: |
-          make -j1 V=s | tee build.log
+          make -j4 V=s | tee build.log
+      
+      - name: Build 2
+        continue-on-error: true
+        if: ${{ matrix.python == 'false' }}
+        run: |
+          make -j4 V=s | tee build.log
 
       - uses: actions/upload-artifact@v4
         with:
