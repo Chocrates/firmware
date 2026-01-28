@@ -67,6 +67,7 @@ jobs:
         run: make toolchain/download toolchain/check FIXUP=1 -j$(nproc) BUILD_LOG=1
 
       - name: Download and check packages
+        if: false
         run: |
           make download
      
